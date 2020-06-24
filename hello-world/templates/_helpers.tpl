@@ -35,20 +35,13 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "hello-world.labels" -}}
+app.kubernetes.io/name: {{ include "hello-world.name" . }}
 helm.sh/chart: {{ include "hello-world.chart" . }}
-{{ include "hello-world.selectorLabels" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end -}}
-
-{{/*
-Selector labels
-*/}}
-{{- define "hello-world.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "hello-world.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
